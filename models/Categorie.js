@@ -28,6 +28,9 @@ const CategorieSchema = new mongoose.Schema({
     endTime: {
         type: String,
         required: true,
+    },
+    order:{
+        type:Number,
     }
 }, {
     timestamps: true
