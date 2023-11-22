@@ -12,11 +12,11 @@ exports.getAll = async (req, res) => {
 }
 exports.addNew = async (req, res) => {
     try {
-        let categorie = await Member.create(memberData);
-        res.json(categorie).status(200);
+        let categorie = await Categorie.create(req.body);
+        return res.json(categorie).status(200);
     }
     catch (err) {
-        res.status(err.status).json(err.message)
+        return res.status(err.status).json(err.message)
     }
 }
 exports.changeOrder = async(req, res) =>{

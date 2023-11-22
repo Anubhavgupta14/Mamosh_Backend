@@ -31,7 +31,7 @@ exports.getCategoryProducts = async (req, res) => {
                 "categories": {
                     $elemMatch: {
                         "name": category,
-                        "checked": true,
+                        // "checked": true,
                         "subCategories": {
                             $elemMatch: {
                                 "name": subcategory,
