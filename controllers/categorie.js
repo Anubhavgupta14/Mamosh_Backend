@@ -4,7 +4,7 @@ exports.getAll = async (req, res) => {
     try {
         let categories = await Categorie.find().sort('order');
         // console.log(categories, "yo")
-        return res.json(categories);
+        return res.status(200).json(categories);
     }
     catch (err) {
         return res.status(404).json({ error: err.message });
@@ -12,11 +12,16 @@ exports.getAll = async (req, res) => {
 }
 exports.addNew = async (req, res) => {
     try {
-        let categorie = await Categorie.create(req.body);
-        return res.json(categorie).status(200);
+        let lastCategory = await Categorie.findOne({}).sort({ points: -1 });
+        console.log(lastCategory,"last category")
+        let category = req.body;
+        category.order = Number(lastCategory.order) + 1;
+        let categorie = await Categorie.create(category);
+        return res.status(200).json(categorie);
+
     }
     catch (err) {
-        return res.status(err.status).json(err.message)
+        return res.status(404).json({error:err.message})
     }
 }
 exports.changeOrder = async(req, res) =>{
