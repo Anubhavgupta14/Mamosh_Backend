@@ -51,3 +51,25 @@ exports.getCategoryProducts = async (req, res) => {
         res.status(err.status).json({ error: err.message })
     }
 }
+exports.getNonCategoryProducts = async (req, res) => {
+    try {
+        let { category, subcategory } = req.query;
+        console.log(category, subcategory)
+        let products = await Product.find(
+            {
+                "categories.name":category,
+                "categories.subCategories": {
+                  $elemMatch: {
+                    name: subcategory,
+                    checked: { $ne: true }
+                  }
+                }
+              }
+        );
+        console.log(products, "products_)")
+        res.status(200).send(products)
+    }
+    catch (err) {
+        res.status(err.status).json({ error: err.message })
+    }
+}

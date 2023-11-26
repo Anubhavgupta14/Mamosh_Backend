@@ -5,4 +5,5 @@ router
 .get('/',Controller.getAll)
 router.post('/', Controller.addNew)
 router.get('/getCategoryProducts', Controller.getCategoryProducts)
+router.get('/getNonCategoryProducts', Controller.getNonCategoryProducts)
 exports.router = router;

@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const categorieRouter = require('./routes/categorie')
+const subcategoriesRouter = require('./routes/subcategories')
 const productRouter = require('./routes/product/product')
 const updateRouter = require('./routes/product/updateChecked')
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(cors())
 
 app.use('/api/categories/', categorieRouter.router)
+app.use('/api/subcategories/', subcategoriesRouter.router)
 app.use('/api/products/', productRouter.router)
 app.use('/api/updateChecked', updateRouter.router)
 
