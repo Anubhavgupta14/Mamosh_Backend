@@ -3,8 +3,8 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const categorieRouter = require('./routes/categorie')
-const productRouter = require('./routes/product')
-const updateRouter = require('./routes/updateChecked')
+const productRouter = require('./routes/product/product')
+const updateRouter = require('./routes/product/updateChecked')
 
 
 async function main() {

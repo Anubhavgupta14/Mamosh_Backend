@@ -1,4 +1,4 @@
-const model = require('../models/Product');
+const model = require('../../models/Product');
 const Product = model.Product;
 
 exports.updateChecked = async (req, res) => {
