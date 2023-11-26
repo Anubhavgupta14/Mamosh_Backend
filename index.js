@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const categorieRouter = require('./routes/categorie')
 const productRouter = require('./routes/product')
+const updateRouter = require('./routes/updateChecked')
 
 
 async function main() {
@@ -19,6 +20,7 @@ app.use(cors())
 
 app.use('/api/categories/', categorieRouter.router)
 app.use('/api/products/', productRouter.router)
+app.use('/api/updateChecked', updateRouter.router)
 
 app.listen(process.env.PORT || 3001, () => {
     console.log('listening on port 3001')
