@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const model = require("../models/User");
+const jwt = require('jsonwebtoken')
 const User = model.User;
 
 exports.signup = async (req, res) => {
@@ -31,5 +32,35 @@ exports.signup = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+exports.signin = async(req,res)=>{
+    try{
+        const {email, password} = req.body
+        const user = await User.findOne({ email });
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+        const token = jwt.sign({ email: user.email, userpassword: user.password }, process.env.SECRET_KEY, { expiresIn: '1h' });
+
+        // Set the token in a cookie
+        res.cookie('token', token, { httpOnly: true });
+
+        // Send the token in the response payload
+        res.status(200).json({ token });
+
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ error: err });
     }
 };
