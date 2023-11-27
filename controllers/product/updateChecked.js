@@ -2,13 +2,13 @@ const model = require('../../models/Product');
 const Product = model.Product;
 
 exports.updateChecked = async (req, res) => {
-    const { productId, categoryId, subcategoryId } = req.body;
+    const { product, category, subcategory } = req.body;
 
     try {
         const updatedProduct = await Product.findOneAndUpdate(
-            { "_id": productId, "categories._id": categoryId, "categories.subCategories._id": subcategoryId },
+            { "name": product, "categories.name": category, "categories.subCategories.name": subcategory },
             { $set: { "categories.$[].subCategories.$[inner].checked": true } },
-            { arrayFilters: [{ "inner._id": subcategoryId }], new: true }
+            { arrayFilters: [{ "inner.name": subcategory }], new: true }
           );
   
       if (updatedProduct) {
