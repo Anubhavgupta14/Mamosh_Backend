@@ -6,6 +6,7 @@ const categorieRouter = require('./routes/categorie')
 const subcategoriesRouter = require('./routes/subcategories')
 const productRouter = require('./routes/product/product')
 const updateRouter = require('./routes/product/updateChecked')
+const signup = require('./routes/user')
 
 
 async function main() {
@@ -23,6 +24,7 @@ app.use('/api/categories/', categorieRouter.router)
 app.use('/api/subcategories/', subcategoriesRouter.router)
 app.use('/api/products/', productRouter.router)
 app.use('/api/updateChecked', updateRouter.router)
+app.use('/api/signup',signup.router)
 
 app.listen(process.env.PORT || 3001, () => {
     console.log('listening on port 3001')
